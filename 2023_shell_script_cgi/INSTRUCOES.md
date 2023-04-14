@@ -40,6 +40,10 @@ Agora, vamos definir uma porta alta na qual o servidor irá escutar para corresp
 vim /etc/apache2/ports.conf
 ```
 Inclua uma linha logo abaixo do parâmetro **Listen 80**
+```bash
+Listen 8080  # estudos
+Listen 9090  # surpresa
+```
 
 Feito isto, vamos criar os **VirtualHosts**:
 ```bash
