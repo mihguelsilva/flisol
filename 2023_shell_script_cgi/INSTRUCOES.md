@@ -162,7 +162,7 @@ Vamos definir uma credencial padrão:
 htpasswd -c -b -B /opt/flisol/.bd admin admin
 ```
 
-Feito isto, efina a página web com elementos básicos de um formulário para validar credenciais de usuários:
+Feito isto, defina a página web com elementos básicos de um formulário para validar credenciais de usuários:
 ```bash
 touch /var/www/surpresa/html/login.html
 chown www-data:www-data -R /var/www/surpresa
@@ -179,15 +179,15 @@ nano /var/www/surpresa/html/login.html
     </head>
     <body>
         <h1>Login</h1>
-        <form method="post" action="/" onSubmit="check()">
+        <form method="post" action="/" onSubmit="return check()">
             <input type="text" name="httpd_username" id="username" placeholder="Insira o seu usuário"> <br>
             <input type="password" name="httpd_password" id="password" placeholder="Insira sua senha"><hr>
             <button type="submit" name="submit" id="submit" value="Login">Login</button>
         </form>
         <script>
             function check() {
-                let u = document.getElementById("username");
-                let p = document.getElementById("password");
+                let u = document.getElementById("username").value;
+                let p = document.getElementById("password").value;
                 if (!u || !p) {
                     window.alert("Insira seus dados!") ; return false
                 } else {
