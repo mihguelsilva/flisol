@@ -10,7 +10,10 @@ Para preparar o ambiente, é preciso ter:
 **OBS**: Todos os testes foram realizados em um servidor GNU/Linux Debian por sua versatilidade e robustez, além da maneira que lida com os serviços internos e entre outros, logo este mesmo servidor terá foco principal para o estudo do material.
 
 ## Primeiros passos
-Acesse o usuário root para rea
+Acesse o usuário root para obter acesso administrativo ao servidor:
+```bash
+su
+```
 Descomente o repositório correspondente ao CD/DVD:
 ```bash
 nano /etc/apt/sources.list
