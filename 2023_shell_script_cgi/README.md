@@ -91,6 +91,7 @@ bash /home/aluno/arquivo.sh  # caso o arquivo esteja neste caminho
 
 Além das variáveis armazenarem valores em memória, é possível armazenar um comando que devolva um resultado:
 ```bash
+#!/bin/bash
 COMANDO=$(cut -d ":" -f1 /etc/passwd | egrep "^ro")
 echo "O usuário selecionado é ${COMANDO}"
 ```
@@ -115,6 +116,81 @@ SUM=$(($NUM + 2))
 # Retornar resultado das variáveis em contexto
 echo "O resultado da variável NUM mais dois é ${SUM}, pois o cálculo é ${NUM} + 2"
 echo "O nome do usuário é ${NOME} e o root dele é ${COMANDO}"
+```
+
+#### Entrada de dados
+É possível e interessante criar um contexto no qual o usuário consiga se comunicar com o programa. Para isso são utilizados as entradas de dados. O comando responsável por fazer isso são o conjunto **echo** e **read**.
+
+**OBS**: Caso o programador deseje, é possível utilizar apenas o comando **read** seguido pelo parâmetro *-p*.
+
+```bash
+#!/bin/bash
+echo "Qual o seu nome? "
+read NOME
+echo "Olá ${NOME}"
+read -p "Qual a sua idade? " IDADE
+echo "${NOME} tem ${IDADE} anos"
+```
+Segundo o campo de ajuda do comando read:
+> Lê uma linha da entrada padrão e separa em campos.
+
+Para entender melhor o funcionamento do comando **read**:
+```bash
+read --help
+```
+
+##### Fluxo de dados
+Para entender melhor o que foi feito acima, vamos explorar o fluxo de dados:
+
+Durante uma operação, o usuário pode:
+
+* Enviar dados para o terminal. Essa seria a entrada padrão (stdin);
+* O sistema operacional pode retornar uma informação para o usuário. Essa seria a saída padrão (stdout);
+* Durante uma operação, um erro pode ser retornado. Essa seria a saída de erros (stderr).
+
+No GNU/Linux, cada fluxo tem a sua representação:
+
+* **stdin**: 0;
+* **stdout**: 1;
+* **stderr**: 2.
+
+##### Redirecionar saídas
+Antes de exemplificar fluxo de dados, vamos entender o redirecionamento.
+
+Toda a saída de um comando é direcionada para o terminal, mas é possível direcionar a sua saída para um arquivo. Dessa maneira:
+
+* **>**: Direciona a saída para algo, criando um arquivo ou reescrevendo todo o conteúdo no mesmo;
+* **>>**: Direciona a saída para algo, criando um arquivo ou adicionando todo o conteúdo no mesmo.
+* **|**: Recebe a saída de um comando e joga para a entrada de outro.
+
+```bash
+ls > listar.txt
+ls / > listar.txt
+```
+No procedimento acima, o que aconteceu?
+
+```bash
+ls /etc >> listar.txt
+```
+E agora, o que aconteceu?
+```bash
+ls /etc | grep passwd
+```
+O que foi retornado?
+
+Vamos entender o que aconteceu:
+
+* No primeiro exemplo foi criado um arquivo listar, onde a saída do conteúdo foi adicionada, e em seguida, um segundo comando foi executado, onde a saída reescreveu completamente o arquivo;
+* No segundo exemplo, a saída do comando atualizou o arquivo, não reescrevendo o mesmo;
+* No terceiro exemplo, a saída do primeiro comando foi jogado para a entrada do segundo comando, onde o resultado de listar o diretório de configuração passou por uma filtragem, na tentativa de encontrar alguma coisa que contenha "passwd".
+
+Essa versatilidade de jogar a saída de um comando para a entrada de outro torna o bash tão poderoso!
+
+##### Manipulando fluxos de dados
+Entendido o funcionamento de redirecionamentos, vamos manipular os fluxos:
+
+```bash
+ls /home 2> error.txt 1>saida.txt
 ```
 
 
