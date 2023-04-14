@@ -20,6 +20,11 @@ Para indicar que um arquivo deve ser interpretado pelo bash, é preciso definir 
 #!/bin/bash
 ```
 
+Após realizar tal procedimento, é importante dar permissões de execução, uma vez que é um arquivo executável:
+```bash
+chmod +x arquivo.sh
+```
+
 A partir deste momento, todo o procedimento realizado dentro deste arquivo será interpretado pelo shell. Caso algum erro ocorra, será retornado ao usuário.
 
 **OBS**: No primeiro contato, será utilizado o comando echo, que segundo o próprio manual:
@@ -77,10 +82,27 @@ COMANDO=$(cut -d ":" -f1 /etc/passwd | egrep "^ro")
 echo "O usuário selecionado é ${COMANDO}"
 ```
 
-Quando trabalhamos com variáveis, trabalhamos com tipos de dados. No Shell Script eles podem ser:
+**OBS**: Shell script possui tipagem fraca e dinâmica:
 
-* **String**: Textos, NOME="Olá mundo",
-* **Number**
+* **Tipagem Fraca**: Permite a concatenação de diferentes tipos primitivos, sem se importar quais são;
+* **Tipagem Dinâmica**: Permite alterar o valor de variáveis ao longo do script.
+
+#### Comentários
+Comentários são textos que dão senso de direção ao programador. Estes textos não são interpretados pelo interpretador, ignorando os mesmos.
+```bash
+#!/bin/bash
+# Variável que recebe um nome
+NOME="mihguel"
+# Variável que recebe um comando
+COMANDO=$(cut -d ":" -f1 /etc/passwd | egrep "^ro")
+# Variável que recebe um número
+NUM=1
+# Variável que faz a soma da variável NUM com 2
+SUM=$(($NUM + 2))
+# Retornar resultado das variáveis em contexto
+echo "O resultado da variável NUM mais dois é ${SUM}, pois o cálculo é ${NUM} + 2"
+echo "O nome do usuário é ${NOME} e o root dele é ${COMANDO}"
+```
 
 
 # Referências Bibliográficas
@@ -88,6 +110,8 @@ Quando trabalhamos com variáveis, trabalhamos com tipos de dados. No Shell Scri
 SIMULANDO programação orientada a objeto. [S. l.], 15 dez. 2016. Disponível em: https://www.shellscriptx.com/2016/12/simulando-programacao-orientada-a-objeto.html. Acesso em: 14 abr. 2023.
 
 SHELL script. [S. l.], 27 mar. 2022. Disponível em: https://mange.ifrn.edu.br/shell-script-wikipedia/. Acesso em: 13 abr. 2023.
+
+INTRODUÇÃO ao Linux e Programação em Shell-Script. [S. l.], 2004. Disponível em: https://www.telecom.uff.br/pet/petws/downloads/apostilas/LINUX.pdf. Acesso em: 14 abr. 2023.
 
 
 
