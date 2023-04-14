@@ -10,6 +10,7 @@ Para preparar o ambiente, é preciso ter:
 **OBS**: Todos os testes foram realizados em um servidor GNU/Linux Debian por sua versatilidade e robustez, além da maneira que lida com os serviços internos e entre outros, logo este mesmo servidor terá foco principal para o estudo do material.
 
 ## Primeiros passos
+Acesse o usuário root para rea
 Descomente o repositório correspondente ao CD/DVD:
 ```bash
 nano /etc/apt/sources.list
@@ -17,11 +18,24 @@ nano /etc/apt/sources.list
 ```bash
 # deb cdrom:[Debian GNU/Linux 11.6.0 _Bullseye_ - Official amd64 DVD Binary-1 20221217-10:40]/ bullseye contrib main
 ```
+Defina os programas a estarem no caminho dentro da variável $PATH:
+```bash
+nano /etc/profile.d/path.sh
+```
+```bash
+#!/bin/bash
+PATH="${PATH}:/sbin"
+```
+Saia da sessão root e retorne novamente para que as alterações sejam aplicadas:
+```bash
+exit
+su
+```
 
 ## Instalando servidor web Apache2
 
 ```bash
-apt-get update && apt-get install apache2 apache2-utils vim
+apt-get update && apt-get install apache2 apache2-utils
 ```
 
 ### Habilitando módulo CGI
@@ -35,7 +49,7 @@ systemctl restart apache2
 ### Preparando ambiente
 A partir deste momento, o material para estudo em laboratório está pronto para ser utilizado. O material a parte, em caso de tempo, necessitará de outros módulos os quais serão alvo de destaque um pouco mais abaixo, todavia, é importante definir as primeiras configurações para o funcionamento em questão:
 ```bash
-vim /etc/apache2/mods-enabled/mime.conf
+nano /etc/apache2/mods-enabled/mime.conf
 ```
 Dentro deste arquivo, procure pelo parâmetro **AddHandler** e descomente-o, informando ao servidor quais tipos de arquivos ele irá lidar e suportar durante a execução de scripts CGI.
 ```bash
@@ -46,7 +60,7 @@ AddHandler cgi-script .cgi .sh
 
 Agora, vamos definir uma porta alta na qual o servidor irá escutar para corresponder ao serviço no qual estamos criando:
 ```bash
-vim /etc/apache2/ports.conf
+nano /etc/apache2/ports.conf
 ```
 Inclua uma linha logo abaixo do parâmetro **Listen 80**
 ```bash
@@ -56,7 +70,7 @@ Listen 9090
 
 Feito isto, vamos criar os **VirtualHosts**:
 ```bash
-vim /etc/apache2/sites-available/estudos.conf
+nano /etc/apache2/sites-available/estudos.conf
 ```
 Agora, basta definir os parâmetros:
 ```bash
@@ -104,7 +118,7 @@ systemctl restart apache2
 ```
 Feito isto, basta criar o **VirtualHost** em questão:
 ```bash
-vim /etc/apache2/sites-available/surpresa.conf
+nano /etc/apache2/sites-available/surpresa.conf
 ```
 Agora, basta definir os parâmetros:
 ```bash
@@ -141,7 +155,7 @@ Defina a página web com elementos básicos de um formulário para validar crede
 ```bash
 touch /var/www/surpresa/html/login.html
 chown www-data:www-data -R /var/www/surpresa
-vim /var/www/surpresa/html/login.html
+nano /var/www/surpresa/html/login.html
 ```
 ```html
 <!DOCTYPE html>
