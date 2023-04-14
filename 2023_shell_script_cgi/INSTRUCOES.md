@@ -141,7 +141,7 @@ Agora, basta definir os parâmetros:
     </Directory>
     <Directory "/var/www/surpresa/logout">
         SetHandler form-logout-handler
-        AuthFormLogoutLocation "https://surpresa.com.br/"
+        AuthFormLogoutLocation "https://google.com/"
         SessionMaxAge 1
         Session On
     </Directory>
@@ -162,7 +162,7 @@ Vamos definir uma credencial padrão:
 htpasswd -c -b -B /opt/flisol/.bd admin admin
 ```
 
-Defina a página web com elementos básicos de um formulário para validar credenciais de usuários:
+Feito isto, efina a página web com elementos básicos de um formulário para validar credenciais de usuários:
 ```bash
 touch /var/www/surpresa/html/login.html
 chown www-data:www-data -R /var/www/surpresa
