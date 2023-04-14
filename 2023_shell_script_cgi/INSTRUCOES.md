@@ -157,7 +157,10 @@ mkdir /opt/flisol
 touch /opt/flisol/.bd
 chown www-data:www-data /opt/flisol/.bd
 ```
-Vamos definir uma credencial padrão
+Vamos definir uma credencial padrão:
+```bash
+htpasswd -c -b -B /opt/flisol/.bd admin admin
+```
 
 Defina a página web com elementos básicos de um formulário para validar credenciais de usuários:
 ```bash
