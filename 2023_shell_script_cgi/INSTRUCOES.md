@@ -35,6 +35,12 @@ AddHandler cgi-script .cgi .sh
 ```
 **OBS**: Além de descomentar o parâmetro em questão, ao final foi adicionado a extensão **.sh**, informando ao servidor que além da extensão **.cgi**, o mesmo poderá lidar com **.sh**.
 
+Agora, vamos definir uma porta alta na qual o servidor irá escutar para corresponder ao serviço no qual estamos criando:
+```bash
+vim /etc/apache2/ports.conf
+```
+Inclua uma linha logo abaixo do parâmetro **Listen 80**
+
 Feito isto, vamos criar os **VirtualHosts**:
 ```bash
 vim /etc/apache2/sites-available/estudos.conf
