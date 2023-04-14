@@ -41,8 +41,8 @@ vim /etc/apache2/ports.conf
 ```
 Inclua uma linha logo abaixo do parâmetro **Listen 80**
 ```bash
-Listen 8080  # estudos
-Listen 9090  # surpresa
+Listen 8080
+Listen 9090
 ```
 
 Feito isto, vamos criar os **VirtualHosts**:
@@ -51,7 +51,7 @@ vim /etc/apache2/sites-available/estudos.conf
 ```
 Agora, basta definir os parâmetros:
 ```bash
-<VirtualHost *:80>
+<VirtualHost *:8080>
     ServerName estudos.com.br
     DocumentRoot /var/www/estudos
 
@@ -99,7 +99,7 @@ vim /etc/apache2/sites-available/surpresa.conf
 ```
 Agora, basta definir os parâmetros:
 ```bash
-<VirtualHost *:80>
+<VirtualHost *:9090>
     ServerName surpresa.com.br
     DocumentRoot /var/www/surpresa
 
