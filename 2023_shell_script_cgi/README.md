@@ -427,7 +427,75 @@ echo "3. Serviço mobile"
 read APP
 app
 ```
-
+Vamos tornar o código mais sofisticado utilizando um arquivo de texto para armazenar usuário e senha:
+```bash
+touch users.txt
+```
+Este será um arquivo simples, onde teremos *USUARIO:SENHA:PERMISSAO*, assim as credenciais não estarão dispostas no código:
+```bash
+Mihguel:Teste123:administrador
+Valdir:CredenceWater:leitura
+Marcos:Castro95:manutenção
+Vivaldi:9192H98:leitura
+Carlos:AlbertoNobrega:operador
+Maria:Eduarda909568:leitura
+```
+Vamos fazer algumas alterações no código:
+```bash
+#!/bin/bash
+function checar {
+    if test $? -ne 0
+    then
+        echo "$ENV inacessível"
+    else
+        echo "$ENV acessível"
+    fi
+}
+function senha {
+    read -p "Usuario " NOME
+    PASS=$(grep $NOME /home/lab/users.txt | cut -d ":" -f2)
+    PERM=$(grep $NOME /home/lab/users.txt | cut -d ":" -f3)
+    if test ! -z $PASS
+    then
+        read -p "Qual a sua senha? " SENHA
+        if test $SENHA == $PASS
+        then
+            echo "Usuário $PERM"
+            /bin/true
+        else
+            echo "Senha não confere com usúario $NOME"
+            /bin/false
+        fi
+    else
+        echo "Usuario $NOME não existe!"
+        /bin/false
+    fi
+}
+function app {
+    if test $APP -eq 1
+    then
+        ENV="Serviço google"
+        senha; checar
+    elif test $APP -eq 2
+    then
+        echo "Acessando jogos online"
+        /bin/true
+        ENV="Serviço click jogos"
+        checar
+    elif test $APP -eq 3
+    then
+        ENV="Serviço mobile"
+        senha; checar
+    fi
+}
+echo "Qual serviço você deseja acessar? "
+echo "1. Serviço google"
+echo "2. Click jogos"
+echo "3. Serviço mobile"
+read APP
+app
+```
+Nesta fase de nosso código, perceba que todo o processo foi automatizado, que novos usuários pode ser adicionados ou removidos sem que o script seja alterado, melhorando o ambiente de execução.
 
 
 # Referências Bibliográficas
