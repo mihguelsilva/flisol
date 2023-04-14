@@ -192,6 +192,127 @@ Entendido o funcionamento de redirecionamentos, vamos manipular os fluxos:
 ```bash
 ls /home 2> error.txt 1>saida.txt
 ```
+No exemplo acima, perceba que a saída de erros foi jogado para um arquivo e a saída padrão para outro. Através deste procedimento é possível criar arquivos de logs, definir escopos de procedimento para análise futura e entre outros.
+
+##### Resumo entrada de dados
+O read capta a entrada padrão após o Sistema Operacional, através de um script de shell transmitir na sua saída uma pergunta a fim de interagir com o usuário final. Após primeira interação, o read armazena o valor em uma variável para utilização posterior.
+
+#### Vetores
+Em linguagens de programação, uma variável ocupa um espaço em memória para armazenar um valor. Como este espaço é limitado, preencher um código com diversas variáveis pode tornar sua execução não funcional.
+
+Para isso, existem os vetores ou variáveis compostas. Elas são responsáveis por armazenar mais de um valor, representando cada um através de um índice.
+
+**OBS**: Na programação, tudo inicia a partir do zero, sendo assim, os índices que representam os valores também o serão.
+
+**OBS**: É importante que o programador tenha ciência do que uma variável representa, sendo assim, o nome da mesma é importante. Não é obrigatório definir um nome seguindo um contexto, mas recomendável.
+
+```bash
+#!/bin/bash
+NOME=("mihguel" "valdir" "joao" "maria" "andre" "paulo")
+echo $NOME  # retorna o primeiro valor
+echo ${NOME[@]}  # retorna todos os valores
+echo ${#NOME[@]}  # retorna número de índices
+echo ${NOME[0]}  # mihguel
+echo ${NOME[1]}  # valdir
+echo ${NOME[-1]}  # paulo
+echo ${NOME[-2]}  # andre
+```
+
+#### Condicionais
+Num script, para tomar certas decisões, você pode definir uma ação direta ou utilizar uma tabela verdade para tal.
+
+##### Operadores
+Na progração existem alguns operadores:
+
+1. Operador de atribuição;
+	* O sinal *=* não significa igualdade, mas recebe, logo NOME recebe mihguel.
+* Operadores aritméticos;
+	* Operadores matemáticos que todos conhecemos;
+* Operadores lógicos;
+	* Através da comparação de sentenças, será definido se a mesma é verdadeira ou falsa.
+* Operadores de comparação;
+	* Realizam comparações de diversas maneiras.
+* Operadores de associação.
+	* Verifica se um elemento está contido em outro.
+
+**OBS**: A base teórica é importante, apesar do conhecimento aprofundado em operadores ser mais necessário em linguagens de programação mais sofisticadas como no caso do Python e Javascript.
+
+#### Test
+Segundo o manual:
+> Verifica tipos de arquivos e compara valores.
+
+A última definição será explorada. Como mencionado sobre a tabela verdade, iremos definir sentenças e verificar se as mesmas são verdadeiras ou falses, e baseado nisso, é possível utilizar as condicionais.
+
+1. Vamos atravessar a rua.
+	* Se um carro aparecer, fico parado;
+	* E se uma moto aparecer, fico parado;
+	* E se o sinal estiver vermelhor, fico parado.
+2. Caso contrário, atravesso a rua.
+
+Perceba no exemplo acima que para tomar uma decisão, algumas condição precisa ser satisfeitas. Neste exemplo:
+
+| **Sentença**  | **Tabela Verdade** | **Ação**  |
+|---------------|:------------------:|-----------|
+|  Vem carro    |      false         | Parado    |
+|  Vem moto     |      false         | Parado    |
+| Sinal vermelho|      false         | Parado    |
+| Sinal verde   |       true         | Atravessar|
+
+Essa verificação é importante no desenvolvimento dos scripts. 
+```bash
+#!/bin/bash
+read -p "Qual o seu nome? "NOME
+```
+No script acima, vamos definir uma condicional. Caso o nome não seja Mihguel, um erro será retornado *(tabela verdade retorna falso)*, informando que o acesso foi negado!
+```bash
+#!/bin/bash
+read -p "Qual o seu nome? " NOME
+if test $NOME == "Mihguel"
+then
+    echo "Você tem permissão para acessar o serviço"
+else
+    echo "Você não tem permissão para acessar o serviço"
+fi
+```
+Neste exemplo, se a condição definida for satisfeita, a tabela verdade irá retornar verdadeiro *(true)*, caso contrário, irá retornar falso *(false)*.
+
+A estrutura condicional se *(if)*, define um bloco de código que será executado caso uma determinada condição seja satisfeita. Esse bloco de código define uma alteração de comportamento no seu script.
+
+```bash
+#!/bin/bash
+read -p "Qual o seu nome? " NOME
+if [[ $NOME == "Mihguel" ]];then
+    echo "Usuário pode acessar o sistema"
+elif [[ $NOME == "Joao" ]];then
+    echo "Usuário pode apenas ler um conteúdo específico"
+elif [[ $NOME == "Marcos" ]];then
+    echo "Usuário pode apenas realizar manutenção no sistema"
+else
+    echo "Você não tem nenhuma permissão!"
+fi
+```
+As condicionais permitem criar diversas sentenças. Também é possível criar condicionais aninhadas. Nesse caso, uma condição será verificada após a anterior ter sido satisfeita:
+```
+#!/bin/bash
+read -p "Qual o seu nome? " NOME
+if test $NOME == "Mihguel"
+then
+    read -p "Qual a sua senha? " SENHA
+    if test $SENHA == "Teste123"
+    then
+        echo "Usuário tem acesso ao sistema!"
+    else
+        echo "Senha incorreta para usuário $NOME"
+    fi
+else
+    echo "Usuário não permissão para acessar o sistema!"
+fi
+```
+Perceba que na condição aninhada, o erro retornado é diferente da anterior, caso a tabela verdade não seja satisfeita!
+
+**OBS**: Em programação, o sinal de igualdade é representado com *==*. Lembre-se, *=* é um operador de atribuição, e se lê *variável X recebe o valor de Y*!
+
+
 
 
 # Referências Bibliográficas
