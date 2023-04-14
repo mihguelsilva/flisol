@@ -198,3 +198,4 @@ nano /var/www/surpresa/html/login.html
     </body>
 </html>
 ```
+Agora, define o mínimo 
