@@ -12,7 +12,7 @@ Para preparar o ambiente, é preciso ter:
 ## Instalando servidor web Apache2
 
 ```bash
-apt-get update && apt-get install apache2
+apt-get update && apt-get install apache2 apache2-utils
 ```
 
 ### Habilitando módulo CGI
@@ -21,7 +21,7 @@ Uma vez instalado o servidor web Apache2, é importante habilitar os módulos CG
 
 ```bash
 a2enmod cgid
-systemctl restart apache2 apache2-utils
+systemctl restart apache2 
 ```
 ### Preparando ambiente
 A partir deste momento, o material para estudo em laboratório está pronto para ser utilizado. O material a parte, em caso de tempo, necessitará de outros módulos os quais serão alvo de destaque um pouco mais abaixo, todavia, é importante definir as primeiras configurações para o funcionamento em questão:
