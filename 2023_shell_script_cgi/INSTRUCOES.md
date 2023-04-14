@@ -133,7 +133,7 @@ Agora, basta definir os parâmetros:
         Options +ExecCGI
         require valid-user
         AuthType form
-        AuthUserFile /opt/data/.users
+        AuthUserFile /opt/flisol/.bd
         AuthName "Reserved Area"
         Session On
         SessionCookieName session path=/
@@ -153,7 +153,12 @@ mkdir -p /var/www/surpresa/{html,css,js,scripts,images}
 touch /var/www/surpresa/index.cgi
 chmod +x /var/www/surpresa/index.cgi
 chown www-data:www-data -R /var/www/surpresa
+mkdir /opt/flisol
+touch /opt/flisol/.bd
+chown www-data:www-data /opt/flisol/.bd
 ```
+Vamos definir uma credencial padrão
+
 Defina a página web com elementos básicos de um formulário para validar credenciais de usuários:
 ```bash
 touch /var/www/surpresa/html/login.html
