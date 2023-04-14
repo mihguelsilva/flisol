@@ -292,7 +292,7 @@ else
 fi
 ```
 As condicionais permitem criar diversas sentenças. Também é possível criar condicionais aninhadas. Nesse caso, uma condição será verificada após a anterior ter sido satisfeita:
-```
+```bash
 #!/bin/bash
 read -p "Qual o seu nome? " NOME
 if test $NOME == "Mihguel"
@@ -312,6 +312,121 @@ Perceba que na condição aninhada, o erro retornado é diferente da anterior, c
 
 **OBS**: Em programação, o sinal de igualdade é representado com *==*. Lembre-se, *=* é um operador de atribuição, e se lê *variável X recebe o valor de Y*!
 
+**OBS 1**: O comando test também pode ser executado através dos parâmetros *[[]]* ou *(())*. Dependendo da distribuição, essa representação pode mudar.
+
+#### Laços de Repetição
+É possível que uma determinada tarefa seja repetida diversas vezes. Um exemplo seria criar um contexto para os usuários existentes no arquivo */etc/passwd*. Uma opção para isso seria:
+```bash
+cut -d ":" -f1 /etc/passwd
+```
+Uma vez que foi retornado no nome de cada usuário, é possível que o desenvolvedor selecione, um a um, e crie um contexto. Porém, isso além de não ser produtivo é penoso e cria um vínculo de dependência com o desenvolvedor. Lembre-se que uma das tarefas é automatizar, e para isso podemos utilizar os laços de repetição.
+
+Um laço de repetição define uma condição na qual um conjunto de passos será repetido até que a sentença seja satisfeita.
+```bash
+#!/bin/bash
+USUARIO=$(cut -d ":" -f1 /etc/passwd)
+for i in $USUARIO;do
+    if test $i == "lab"
+    then
+        echo "Usuário encontrado!"
+    fi
+done
+```
+Outra maneira de criar um laço de repetição:
+```bash
+#!/bin/bash
+CONTADOR=0
+while [[ $CONTADOR < 9 ]];do
+    echo $CONTADOR
+    let CONTADOR++
+done
+```
+O exemplo abaixo pode ser reconhecido por muitos programadores por se assemelhar com algumas linguagens de programação:
+```bash
+#!/bin/bash
+for ((A=0; A<9;A++));do
+    echo $A
+done
+```
+#### Funções
+Funções agregam um bloco de código que pode ser utilizado diversas vezes dentro de um script de programa. Como um procedimento pode se repetir diversas vezes em contextos diferentes, as funções servem para dar ênfase ao mesmo:
+```bash
+#!/bin/bash
+function senha {
+    read -p "Qual a sua senha? " SENHA
+    if test $NOME == "Mihguel" -a $SENHA == "Teste123"
+    then
+        echo "Usuário pode acessar o sistema!"
+    elif test $NOME == "Joao" -a $SENHA == "Jaca49"
+    then
+        echo "Usuário de somente leitura!"
+    elif test $NOME == "Karen" -a $SENHA == "Rebeca98"
+    then
+        echo "Usuário de manutenção!"
+    else
+        echo "Credenciais incorretas ou usuário inválido!"
+    fi
+}
+read -p "Qual o seu nome? " NOME
+senha
+```
+Apesar de existir apenas um contexto no script, este bloco de código estará disponível, definido um conjunto de passos a serem seguidos, permitindo a criação de novos contextos:
+```bash
+#!/bin/bash
+function senha {
+    read -p "Qual o seu nome? " NOME
+    read -p "Qual a sua senha? " SENHA
+    if test $NOME == "Mihguel" -a $SENHA == "Teste123"
+    then
+        echo "Usuário pode acessar o sistema!"
+        /bin/true
+    elif test $NOME == "Joao" -a $SENHA == "Jaca49"
+    then
+        echo "Usuário de somente leitura!"
+        /bin/true
+    elif test $NOME == "Karen" -a $SENHA == "Rebeca98"
+    then
+        echo "Usuário de manutenção!"
+        /bin/true
+    else
+        echo "Credenciais incorretas ou usuário inválido!"
+        /bin/false
+    fi
+}
+function checar {
+    if test $? -ne 0
+    then
+        echo "$ENV inacessível"
+    else
+        echo "$ENV acessível"
+    fi
+}
+function app {
+    if test $APP -eq 1
+    then
+        senha
+        ENV="Serviço google"
+        checar
+    elif test $APP -eq 2
+    then
+        echo "Acessando jogos online"
+        /bin/true
+        ENV="Serviço click jogos"
+        checar
+    elif test $APP -eq 3
+    then
+        senha
+        ENV="Serviço mobile"
+        checar
+    fi
+}
+echo "Qual serviço você deseja acessar? "
+echo "1. Serviço google"
+echo "2. Click jogos"
+echo "3. Serviço mobile"
+read APP
+app
+```
 
 
 
