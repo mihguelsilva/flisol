@@ -149,7 +149,7 @@ Agora, basta definir os parâmetros:
 ```
 Agora, basta criar o diretório de trabalho definido no campo **DocumentRoot**, onde estão localizados as páginas web, programação e scripts. Para isso:
 ```bash
-mkdir -p /var/www/surpresa/{html,css,js,scripts,images}
+mkdir -p /var/www/surpresa/{html,css,js,scripts,images,logout}
 touch /var/www/surpresa/index.cgi
 chmod +x /var/www/surpresa/index.cgi
 chown www-data:www-data -R /var/www/surpresa
@@ -198,4 +198,12 @@ nano /var/www/surpresa/html/login.html
     </body>
 </html>
 ```
-Agora, define o mínimo 
+Agora, define o mínimo de configuração no arquivo principal:
+```bash
+nano /var/www/surpresa/index.cgi
+```
+```
+#!/bin/bash
+echo "Content-type: text/html"
+echo
+```
