@@ -35,14 +35,6 @@ AddHandler cgi-script .cgi .sh
 ```
 **OBS**: Além de descomentar o parâmetro em questão, ao final foi adicionado a extensão **.sh**, informando ao servidor que além da extensão **.cgi**, o mesmo poderá lidar com **.sh**.
 
-Feito isto, basta criar o **VirtualHost**, mas antes, para uma melhor compreensão da atividade, o isso também será explanado em sala de aula, é bom definir um escopo de nome na resolução local do aluno:
-```bash
-vim /etc/hosts
-127.0.0.1  estudos.com.br
-127.0.0.1  surpresa.com.br
-::1        estudos.com.br
-::1        surpresa.com.br
-```
 Feito isto, vamos criar os **VirtualHosts**:
 ```bash
 vim /etc/apache2/sites-available/estudos.conf
@@ -60,17 +52,22 @@ Agora, basta definir os parâmetros:
 ```
 Este é o mínimo para permitir o Apache lidar com diversas linguagens de programação do lado do servidor, e nesta, em especial, Shell Script.
 
+Agora, basta criar o diretório de trabalho definido no campo **DocumentRoot**, onde estão localizados as páginas web, programação e scripts. Para isso:
+```bash
+mkdir -p /var/www/estudos/{html,css,js,scripts,images}
+touch /var/www/estudos/index.cgi
+chmod +x /var/www/estudos/index.cgi
+chown www-data:www-data -R /var/www/estudos
+```
+**OBS**: Como se tratam de scripts CGI, é importante que os mesmos tenham permissão de execução, uma vez que o Apache o entende como um arquivo executável, caso contrário um erro 500 será retornado, informando erro do lado do servidor.
+
 Agora, basta habilitar o **VirtualHost**:
 ```bash
 a2ensite estudos
 systemctl restart apache2
 ```
-**OBS**: Como o ambiente deve estar limitado ao diretório home do aluno, basta criar um link simbólico para o diretório /var/www, e o restante das atividades serão realizadas normalmente, focando na base do aluno em questão, e limitando as tarefas no mesmo:
-```
-mkdir ~/{estudo,surpresa}
-ln -s ~/estudo /var/www
-ln -s ~/surpresa /var/www
-```
+
+A partir deste momento, basta realizar as configurações nos arquivos **.cgi**.
 
 ### Módulo surpresa
 O módulo surpresa irá demonstrar para os alunos montar uma página web simples com o intuito de limitar o acesso a um serviço através de um login. Para isso, será necessário habilitar os módulos:
@@ -104,7 +101,7 @@ Agora, basta definir os parâmetros:
         AuthName "Reserved Area"
         Session On
         SessionCookieName session path=/
-        ErrorDocument 401 /pages/login.html
+        ErrorDocument 401 /html/login.html
     </Directory>
     <Directory "/var/www/surpresa/logout">
         SetHandler form-logout-handler
@@ -113,4 +110,47 @@ Agora, basta definir os parâmetros:
         Session On
     </Directory>
 </VirtualHost>
+```
+Agora, basta criar o diretório de trabalho definido no campo **DocumentRoot**, onde estão localizados as páginas web, programação e scripts. Para isso:
+```bash
+mkdir -p /var/www/surpresa/{html,css,js,scripts,images}
+touch /var/www/surpresa/index.cgi
+chmod +x /var/www/surpresa/index.cgi
+chown www-data:www-data -R /var/www/surpresa
+```
+Defina a página web com elementos básicos de um formulário para validar credenciais de usuários:
+```bash
+touch /var/www/surpresa/html/login.html
+chown www-data:www-data -R /var/www/surpresa
+vim /var/www/surpresa/html/login.html
+```
+```html
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <meta name="author" content="Mihguel Da Silva Santos Tavares De Araujo">
+        <meta name="description" content="Página de login para curso de shell script com cgi em apache">
+        <title>Página de Login</title>
+    </head>
+    <body>
+        <h1>Login</h1>
+        <form method="post" action="/" onSubmit="check()">
+            <input type="text" name="httpd_username" id="username" placeholder="Insira o seu usuário"> <br>
+            <input type="password" name="httpd_password" id="password" placeholder="Insira sua senha"><hr>
+            <button type="submit" name="submit" id="submit" value="Login">Login</button>
+        </form>
+        <script>
+            function check() {
+                let u = document.getElementById("username");
+                let p = document.getElementById("password");
+                if (!u || !p) {
+                    window.alert("Insira seus dados!") ; return false
+                } else {
+                    return true
+                }
+            }
+        </script>
+    </body>
+</html>
 ```
