@@ -9,10 +9,19 @@ Para preparar o ambiente, é preciso ter:
 
 **OBS**: Todos os testes foram realizados em um servidor GNU/Linux Debian por sua versatilidade e robustez, além da maneira que lida com os serviços internos e entre outros, logo este mesmo servidor terá foco principal para o estudo do material.
 
+## Primeiros passos
+Descomente o repositório correspondente ao CD/DVD:
+```bash
+nano /etc/apt/sources.list
+```
+```bash
+# deb cdrom:[Debian GNU/Linux 11.6.0 _Bullseye_ - Official amd64 DVD Binary-1 20221217-10:40]/ bullseye contrib main
+```
+
 ## Instalando servidor web Apache2
 
 ```bash
-apt-get update && apt-get install apache2 apache2-utils
+apt-get update && apt-get install apache2 apache2-utils vim
 ```
 
 ### Habilitando módulo CGI
