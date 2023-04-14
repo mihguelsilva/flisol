@@ -76,6 +76,19 @@ echo "Meu nome é ${NOME}"
 ```
 **OBS**: Para retornar valores de variáveis são utilizadas as aspas duplas. As aspas simples retornam o valor literal, ou seja, *Meu nome é ${NOME}*.
 
+Sendo um arquivo executável, é possível executar o mesmo de duas maneiras:
+
+* Definindo o caminho relativo;
+* Definindo o caminho absoluto;
+* Os anteriores executados pelo programa bash.
+
+```bash
+./arquivo.sh  # precisa estar no mesmo diretório de trabalho
+/home/aluno/arquivo.sh  # caso o arquivo esteja neste caminho
+bash ./arquivo.sh  # precisa estar no mesmo diretório de trabalho
+bash /home/aluno/arquivo.sh  # caso o arquivo esteja neste caminho
+```
+
 Além das variáveis armazenarem valores em memória, é possível armazenar um comando que devolva um resultado:
 ```bash
 COMANDO=$(cut -d ":" -f1 /etc/passwd | egrep "^ro")
