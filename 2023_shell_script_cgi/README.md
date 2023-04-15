@@ -453,8 +453,8 @@ function checar {
 }
 function senha {
     read -p "Usuario " NOME
-    PASS=$(grep $NOME /home/lab/users.txt | cut -d ":" -f2)
-    PERM=$(grep $NOME /home/lab/users.txt | cut -d ":" -f3)
+    PASS=$(grep -nw $NOME $PWD/users.txt | cut -d ":" -f3)
+    PERM=$(grep -nw $NOME $PWD/users.txt | cut -d ":" -f4)
     if test ! -z $PASS
     then
         read -p "Qual a sua senha? " SENHA
@@ -496,6 +496,11 @@ read APP
 app
 ```
 Nesta fase de nosso código, perceba que todo o processo foi automatizado, que novos usuários pode ser adicionados ou removidos sem que o script seja alterado, melhorando o ambiente de execução.
+
+Vamos criar uma nova funcionalidade. Vamos gerenciar usuaŕios!
+```bash
+
+```
 
 
 # Referências Bibliográficas
