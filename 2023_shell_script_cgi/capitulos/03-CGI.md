@@ -1,6 +1,6 @@
 [Início](../README.md)
 
-# Instruções
+# Shell Script CGI com Apache
 
 Para preparar o ambiente, é preciso ter:
 
@@ -10,38 +10,6 @@ Para preparar o ambiente, é preciso ter:
 * Módulos extras habilitados para estudo supresa, caso o tempo requerido seja satisfeito.
 
 **OBS**: Todos os testes foram realizados em um servidor GNU/Linux Debian por sua versatilidade e robustez, além da maneira que lida com os serviços internos e entre outros, logo este mesmo servidor terá foco principal para o estudo do material.
-
-## Primeiros passos
-Acesse o usuário root para obter acesso administrativo ao servidor:
-```bash
-su
-```
-Descomente o repositório correspondente ao CD/DVD:
-```bash
-nano /etc/apt/sources.list
-```
-```bash
-# deb cdrom:[Debian GNU/Linux 11.6.0 _Bullseye_ - Official amd64 DVD Binary-1 20221217-10:40]/ bullseye contrib main
-```
-Defina os programas a estarem no caminho dentro da variável $PATH:
-```bash
-nano /etc/profile.d/path.sh
-```
-```bash
-#!/bin/bash
-PATH="${PATH}:/sbin"
-```
-Saia da sessão root e retorne novamente para que as alterações sejam aplicadas:
-```bash
-exit
-su
-```
-
-## Instalando servidor web Apache2
-
-```bash
-apt-get update && apt-get install apache2 apache2-utils
-```
 
 ### Habilitando módulo CGI
 
