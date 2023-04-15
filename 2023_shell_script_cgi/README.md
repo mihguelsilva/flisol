@@ -499,7 +499,114 @@ Nesta fase de nosso código, perceba que todo o processo foi automatizado, que n
 
 Vamos criar uma nova funcionalidade. Vamos gerenciar usuaŕios!
 ```bash
-
+#!/bin/bash
+function checar {
+    if test $? -ne 0
+    then
+        echo "$ENV inacessível"
+    else
+        echo "$ENV acessível"
+    fi
+}
+function checar_gerenciamento_usuarios {
+    if test -z $NOME 2> /dev/null || -z $SENHA 2> /dev/null || -z $PERM  2> /dev/null
+    then
+        echo "Você não preencheu o campo requisitado!"
+        exit 1
+    fi
+    if test $NOME == $(grep -w $NOME $PWD/users.txt | cut -d":" -f1) 2> /dev/null
+        then
+        echo "Usuário já existe!" ; exit 0
+    fi
+}
+function checar_permissao {
+    if [[ $PERM =~ ^(leitura|administrador|manutenção)$ ]];then
+        echo "Usuário criado com sucesso!"
+    else
+        echo -e "Permissão inexistente!\nEscolha uma permissão:\n- administrador\n- manutenção\n- leitura"
+        exit 1
+    fi
+}
+function gerenciar_usuarios {
+    echo "Para gerenciar usuários:"
+    echo "1. Criar usuários"
+    echo "2. Deletar usuários"
+    read MANAGE
+    if test $MANAGE -eq 1 -o $MANAGE -eq 2 2> /dev/null
+    then
+        if test $MANAGE -eq 1
+        then
+            read -p "Qual o nome do novo usuário? " NOME
+            checar_gerenciamento_usuarios
+            read -p "Qual a senha do novo usuário? " SENHA
+            checar_gerenciamento_usuarios
+            read -p "Qual a permissão do novo usuário? " PERM
+            checar_permissao
+            echo "$NOME:$SENHA:$PERM" >> $PWD/users.txt
+        else
+           read -p "Qual o usuaŕio que você deseja deletar? " NOME
+           NUMBER=$(grep -nw $NOME $PWD/users.txt | cut -d ":" -f1)
+           if test -z $NUMBER
+           then
+               echo "Usuário não existe!"
+           else
+               sed -i "${NUMBER}d" $PWD/users.txt
+               echo "Usuário deletado com sucesso!"
+           fi
+        fi
+    else
+        echo "Opção inválida!"
+    fi
+}
+function senha {
+    read -p "Usuario " NOME
+    PASS=$(grep -nw $NOME $PWD/users.txt | cut -d ":" -f3)
+    PERM=$(grep -nw $NOME $PWD/users.txt | cut -d ":" -f4)
+    if test ! -z $PASS
+    then
+        read -p "Qual a sua senha? " SENHA
+        if test $SENHA == $PASS
+        then
+            echo "Usuário $PERM"
+            /bin/true
+        else
+            echo "Senha não confere com usúario $NOME"
+            /bin/false
+        fi
+    else
+        echo "Usuario $NOME não existe!"
+        /bin/false
+    fi
+}
+function app {
+    if test $APP -eq 1
+    then
+        ENV="Serviço google"
+        senha; checar
+    elif test $APP -eq 2
+    then
+        echo "Acessando jogos online"
+        /bin/true
+        ENV="Serviço click jogos"
+        checar
+    elif test $APP -eq 3
+    then
+        ENV="Serviço mobile"
+        senha; checar
+    elif test $APP -eq 4
+    then
+        gerenciar_usuarios
+    else
+        echo "Opção inválida!"
+    fi
+}
+echo "Qual serviço você deseja acessar? "
+echo "1. Serviço google"
+echo "2. Click jogos"
+echo "3. Serviço mobile"
+echo "4. Gerenciar Usuários"
+read APP
+app
 ```
 
 
