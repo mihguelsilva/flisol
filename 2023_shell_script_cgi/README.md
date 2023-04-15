@@ -619,21 +619,33 @@ env
 Para que o script funcionasse adequadamente, códigos de saída foram manipulados. De maneira geral:
 
 * **Código 0**: Quando um procedimento ou comando é executado corretamente;
-* **Código diferente de 0**: Quando um procedimento ou comando não é executado corretamente. 
+* **Código diferente de 0**: Quando um procedimento ou comando não é executado corretamente.
+
+Para forçar o sistema a satisfazer uma condição, independente de qual seja:
+```bash
+/bin/true
+```
+Para forçar o sistema a não satisfazer uma condição, independente de qual seja:
+```bash
+/bin/false
+```
+Como exemplo, vamos utilizar o comando **echo**. No terminal, a sentença **&&** indica que o segundo comando só será executado caso o primeiro não retorne nenhum erro:
+```bash
+/bin/true && echo "funcionou"
+/bin/false && echo "funcionou"
+ls && echo "funcionou"
+ls asgasfasjguaesnas && echo "funcionou"
+```
 
 
 # Referências Bibliográficas
 
-SIMULANDO programação orientada a objeto. [S. l.], 15 dez. 2016. Disponível em: https://www.shellscriptx.com/2016/12/simulando-programacao-orientada-a-objeto.html. Acesso em: 14 abr. 2023.
-
 SHELL Script. [S. l.], 2013. Disponível em: http://www.inf.ufes.br/~vitorsouza/archive/2020/wp-content/uploads/teaching-lp-20132-seminario-shell.pdf. Acesso em: 13 abr. 2023.
-
-HIRA, Zaira. Grep Command in Linux – Usage, Options, and Syntax Examples. [S. l.], 17 jan. 2023. Disponível em: https://www.freecodecamp.org/news/grep-command-in-linux-usage-options-and-syntax-examples/. Acesso em: 14 abr. 2023.
 
 SHELL script. [S. l.], 27 mar. 2022. Disponível em: https://mange.ifrn.edu.br/shell-script-wikipedia/. Acesso em: 13 abr. 2023.
 
+HIRA, Zaira. Grep Command in Linux – Usage, Options, and Syntax Examples. [S. l.], 17 jan. 2023. Disponível em: https://www.freecodecamp.org/news/grep-command-in-linux-usage-options-and-syntax-examples/. Acesso em: 14 abr. 2023.
+
 INTRODUÇÃO ao Linux e Programação em Shell-Script. [S. l.], 2004. Disponível em: https://www.telecom.uff.br/pet/petws/downloads/apostilas/LINUX.pdf. Acesso em: 14 abr. 2023.
 
-
-
-
+SIMULANDO programação orientada a objeto. [S. l.], 15 dez. 2016. Disponível em: https://www.shellscriptx.com/2016/12/simulando-programacao-orientada-a-objeto.html. Acesso em: 14 abr. 2023.
