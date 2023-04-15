@@ -2,7 +2,7 @@
 
 # HTTP
 
-Agora que temos um entendimento básico sobre Shell Script, vamos compreender como funciona o básico do HTTP para que mont
+Agora que temos um entendimento básico sobre Shell Script, vamos compreender como funciona o básico do HTTP para que montarmos nosso servidor web.
 
 ## Primeiros passos
 Acesse o usuário root para obter acesso administrativo ao servidor:
@@ -33,7 +33,7 @@ su
 ## Instalando servidor web Apache2
 
 ```bash
-apt-get update && apt-get install apache2 apache2-utils
+apt-get update && apt-get install apache2 apache2-utils tcpdump nmap links2
 ```
 
 [Inicio](../README.md)
