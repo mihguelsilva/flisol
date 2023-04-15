@@ -609,10 +609,26 @@ read APP
 app
 ```
 
+#### Variáveis de ambiente
+O bash contém diversas variáveis de ambiente e que foram utilizadas no script. Para saber quais são elas:
+```bash
+env
+```
+
+#### Código de saída
+Para que o script funcionasse adequadamente, códigos de saída foram manipulados. De maneira geral:
+
+* **Código 0**: Quando um procedimento ou comando é executado corretamente;
+* **Código diferente de 0**: Quando um procedimento ou comando não é executado corretamente. 
+
 
 # Referências Bibliográficas
 
 SIMULANDO programação orientada a objeto. [S. l.], 15 dez. 2016. Disponível em: https://www.shellscriptx.com/2016/12/simulando-programacao-orientada-a-objeto.html. Acesso em: 14 abr. 2023.
+
+SHELL Script. [S. l.], 2013. Disponível em: http://www.inf.ufes.br/~vitorsouza/archive/2020/wp-content/uploads/teaching-lp-20132-seminario-shell.pdf. Acesso em: 13 abr. 2023.
+
+HIRA, Zaira. Grep Command in Linux – Usage, Options, and Syntax Examples. [S. l.], 17 jan. 2023. Disponível em: https://www.freecodecamp.org/news/grep-command-in-linux-usage-options-and-syntax-examples/. Acesso em: 14 abr. 2023.
 
 SHELL script. [S. l.], 27 mar. 2022. Disponível em: https://mange.ifrn.edu.br/shell-script-wikipedia/. Acesso em: 13 abr. 2023.
 
