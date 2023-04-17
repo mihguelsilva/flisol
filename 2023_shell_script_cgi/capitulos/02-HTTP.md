@@ -68,9 +68,5 @@ O procedimento acima mostra um cabeçalho de requisição simples HTTP, onde:
 **OBS**: Este procedimento HTTP será lembrado quando o arquivo CGI principal estiver sendo configurado e desenvolvido. Caso esta regra não seja obedecida, um erro interno referente ao servidor será retornado.
 
 [Básico de Programação](./01-PROGRAMACAO.md) 
-<br<a href="./03-CGI.md" style="">Shell Script com Apache<a>
-
-
-
 
 [Shell Script CGI com Apache](./03-CGI.md)

@@ -177,7 +177,6 @@ nano /var/www/surpresa/index.cgi
 echo "Content-type: text/html"
 echo
 ```
-[Início](../README.md)
 
 [Básico de Programação](./01-PROGRAMACAO.md)
 

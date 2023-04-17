@@ -654,8 +654,6 @@ INTRODUÇÃO ao Linux e Programação em Shell-Script. [S. l.], 2004. Disponíve
 
 SIMULANDO programação orientada a objeto. [S. l.], 15 dez. 2016. Disponível em: https://www.shellscriptx.com/2016/12/simulando-programacao-orientada-a-objeto.html. Acesso em: 14 abr. 2023.
 
-[Inicio](../README.md)
-
 [Básico de HTTP](./02-HTTP.md)
 
 [Shell Script CGI com Apache](./03-CGI.md)
