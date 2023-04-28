@@ -613,6 +613,77 @@ read APP
 app
 ```
 
+```bash
+#!/bin/bash
+function deletar_usuarios {
+	echo "Deletar usuarios"
+	select delUser in $(cut -d":" -f1 $PWD/users.txt)
+	do
+		if test -z $delUser
+		then
+			echo "Opção inválida"
+		else
+			echo "Deletando usuário $delUser"
+			declare NUMBER=$(grep -wn $delUser $PWD/users.txt | cut -d ":" -f1)
+			sed -i "${NUMBER}d" $PWD/users.txt
+		fi
+		break;
+	done
+}
+function adicionar_usuarios {
+	read -p "Defina o nome de usuário: " NOME
+	read -p "Define a senha do novo usuário: " SENHA
+	if [[ -z $NOME || -z $SENHA ]];then
+		echo "Preencha os campos requisitados!" && exit 1
+	elif [[ ! -z $(grep -w $NOME $PWD/users.txt) ]];then
+		echo "Usuário $NOME já existe!" && exit 1
+	fi
+	echo "Selecione o grupo do novo usuário:"
+	select GRUPO in administrador operador manutencao leitura
+	do
+		case $GRUPO in
+			"administrador"|"operador"|"manutencao"|"leitura") echo "$NOME:$SENHA:$GRUPO" >> $PWD/users.txt;;
+			*) echo "Opção inválida!"
+		esac
+		break;
+	done
+}
+function gerenciar_usuarios {
+	echo "Gerenciar usuaŕios:"
+	select menuUser in Adicionar Deletar
+	do
+		case $menuUser in
+			"Adicionar") adicionar_usuarios;;
+			"Deletar") deletar_usuarios;;
+			*) echo "Opção inválida"
+		esac
+		break;
+	done
+}
+function checkUser {
+	read -p "Digite o seu usuário: " USER
+	read -p "Digite a sua senha: " PASS
+	if [[ $USER == $(grep -w $USER $PWD/users.txt | cut -d":" -f1) && $PASS == $(grep -w $USER $PWD/users.txt | cut -d":" -f2) ]];then
+		echo "Você está acessando $MENU"
+		echo "Seu usuário é $USER e você tem permissão de "$(grep -w $USER $PWD/users.txt | cut -d":" -f3)
+	else
+		echo "Você não tem permissão de acessar o serviço!"
+	fi
+}
+echo "Programa desenvolvido para estudos no Flisol:"
+select MENU in google instagram clickJogos gerenciarUsuarios
+do
+	case $MENU in
+		"google") checkUser;;
+		"instagram") checkUser;;
+		"clickJogos") checkUser;;
+		"gerenciarUsuarios") gerenciar_usuarios;;
+		*) echo "Opção inválida"
+	esac
+	break;
+done
+```
+
 #### Variáveis de ambiente
 O bash contém diversas variáveis de ambiente e que foram utilizadas no script. Para saber quais são elas:
 ```bash
